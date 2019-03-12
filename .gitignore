@@ -1,0 +1,8 @@
+build/
+.local/
+.testrepository/
+.tox/
+func-results.json
+test-charm/
+interfaces
+__pycache__

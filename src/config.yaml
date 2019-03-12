@@ -1,0 +1,6 @@
+options:
+  enable-stonith:
+    type: boolean
+    default: False
+    description: |
+        Whether to request a stoniith resoiurce is created for this nodee

@@ -1,0 +1,16 @@
+name: pacemaker-remote
+subordinate: true
+maintainer: OpenStack Charmers <openstack-charmers@lists.ubuntu.com>
+summary: Deploys a pacemaker remote service
+description: |
+  Deploys a pacemaker-remote which can be added to a full cluster.
+tags:
+  - openstack
+series:
+  - bionic
+requires:
+  pacemaker-remote:
+    interface: pacemaker-remote
+  juju-info:
+    interface: juju-info
+    scope: container
