@@ -4,3 +4,8 @@ options:
     default: False
     description: |
         Whether to request a stoniith resoiurce is created for this nodee
+  enable-resources:
+    type: boolean
+    default: True
+    description: |
+        Whether to host resources from the main cluster

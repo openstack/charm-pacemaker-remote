@@ -22,13 +22,14 @@ import charmhelpers.core.host as ch_host
 
 import charmhelpers.contrib.network.ip
 
-COROSYNC_DIR = '/etc/corosync/'
+COROSYNC_DIR = '/etc/corosync'
 SERVICES = ['pacemaker_remote', 'pcsd']
 PACKAGES = ['pacemaker-remote', 'pcs', 'resource-agents', 'corosync']
 PACEMAKER_KEY = '/etc/pacemaker/authkey'
 
 
 def install_packages():
+    """Install apckages neede dby charm"""
     hookenv.status_set('maintenance', 'Installing packages')
     fetch.apt_install(PACKAGES, fatal=True)
     hookenv.status_set('maintenance',
@@ -36,6 +37,7 @@ def install_packages():
 
 
 def wipe_corosync_state():
+    """Remove state left by corosync package"""
     try:
         shutil.rmtree('{}/uidgid.d'.format(COROSYNC_DIR))
     except FileNotFoundError:
@@ -47,12 +49,14 @@ def wipe_corosync_state():
 
 
 def restart_services():
+    """Restart pacemker_remote and associated services"""
     for svc in SERVICES:
         ch_host.service_restart(svc)
 
 
 @reactive.when_not('pacemaker-remote.installed')
 def install():
+    """Perform initial setup of pacmekaer-remote"""
     install_packages()
     wipe_corosync_state()
     reactive.set_flag('pacemaker-remote.installed')
@@ -60,16 +64,24 @@ def install():
 
 @reactive.when('endpoint.pacemaker-remote.joined')
 def publish_stonith_info():
-    if hookenv.config(''):
-        remote = reactive.endpoint_from_flag(
-            'endpoint.pacemaker-remote.joined')
-        remote.publish_info(
-            stonith_hostname=charmhelpers.contrib.network.ip.get_hostname(
-                hookenv.unit_get('private-address')))
+    """Provide remote hacluster with info for including remote in cluster"""
+    remote_hostname = charmhelpers.contrib.network.ip.get_hostname(
+        hookenv.unit_get('private-address'))
+    if hookenv.config('enable-stonith'):
+        stonith_hostname = remote_hostname
+    else:
+        stonith_hostname = None
+    remote = reactive.endpoint_from_flag(
+        'endpoint.pacemaker-remote.joined')
+    remote.publish_info(
+        remote_hostname=remote_hostname,
+        enable_resources=hookenv.config('enable-resources'),
+        stonith_hostname=stonith_hostname)
 
 
 @reactive.when('endpoint.pacemaker-remote.changed.pacemaker-key')
 def write_pacemaker_key():
+    """Finish setup of pacemaker-remote"""
     remote = reactive.endpoint_from_flag('endpoint.pacemaker-remote.changed')
     key = remote.get_pacemaker_key()
     if key:
@@ -80,3 +92,4 @@ def write_pacemaker_key():
             group='haclient',
             perms=0o444)
         restart_services()
+        hookenv.status_set('active', 'Unit is ready')

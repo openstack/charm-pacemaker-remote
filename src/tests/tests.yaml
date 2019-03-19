@@ -1,0 +1,10 @@
+charm_name: pacemaker-remote
+tests:
+  - tests.tests_pacemaker_remote.PacemakerRemoteTest
+configure:
+  - zaza.charm_tests.noop.setup.basic_setup
+gate_bundles:
+  - basic
+smoke_bundles:
+  - basic
+

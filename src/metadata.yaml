@@ -9,8 +9,9 @@ tags:
 series:
   - bionic
 requires:
-  pacemaker-remote:
-    interface: pacemaker-remote
   juju-info:
     interface: juju-info
     scope: container
+provides:
+  pacemaker-remote:
+    interface: pacemaker-remote
