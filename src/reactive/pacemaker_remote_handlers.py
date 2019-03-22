@@ -79,6 +79,12 @@ def publish_stonith_info():
         stonith_hostname=stonith_hostname)
 
 
+@reactive.when_file_changed(PACEMAKER_KEY)
+def pacmaker_config_changed():
+    """Restart all seervices managed by the charm."""
+    restart_services()
+
+
 @reactive.when('endpoint.pacemaker-remote.changed.pacemaker-key')
 def write_pacemaker_key():
     """Finish setup of pacemaker-remote"""
@@ -91,5 +97,4 @@ def write_pacemaker_key():
             owner='hacluster',
             group='haclient',
             perms=0o444)
-        restart_services()
         hookenv.status_set('active', 'Unit is ready')

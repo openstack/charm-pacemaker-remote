@@ -187,10 +187,8 @@ class TestPAcemakerRemoteHandlers(unittest.TestCase):
         endpoint_mock.get_pacemaker_key.return_value = 'corokey'
         self.endpoint_from_flag.return_value = endpoint_mock
         self.patch(handlers.hookenv, 'status_set')
-        self.patch(handlers, 'restart_services')
         self.patch(handlers.ch_host, 'write_file')
         handlers.write_pacemaker_key()
-        self.restart_services.assert_called_once_with()
         self.write_file.assert_called_once_with(
             '/etc/pacemaker/authkey',
             'corokey',
@@ -204,8 +202,11 @@ class TestPAcemakerRemoteHandlers(unittest.TestCase):
         endpoint_mock = mock.MagicMock()
         endpoint_mock.get_pacemaker_key.return_value = None
         self.endpoint_from_flag.return_value = endpoint_mock
-        self.patch(handlers, 'restart_services')
         self.patch(handlers.ch_host, 'write_file')
         handlers.write_pacemaker_key()
-        self.assertFalse(self.restart_services.called)
         self.assertFalse(self.write_file.called)
+
+    def test_pacmaker_config_changed(self):
+        self.patch(handlers, 'restart_services')
+        handlers.pacmaker_config_changed()
+        self.restart_services.assert_called_once_with()
