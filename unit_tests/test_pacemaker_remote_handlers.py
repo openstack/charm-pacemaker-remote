@@ -142,13 +142,13 @@ class TestPAcemakerRemoteHandlers(unittest.TestCase):
         self.wipe_corosync_state.assert_called_once_with()
 
     def test_publish_stonith_info(self):
-        self.patch(handlers.charmhelpers.contrib.network.ip, 'get_hostname')
+        self.patch(handlers.socket, 'gethostname')
+        self.patch(handlers.hookenv, 'network_get_primary_address')
         self.patch(handlers.hookenv, 'status_set')
         self.patch(handlers.hookenv, 'config')
-        self.patch(handlers.hookenv, 'unit_get')
         self.patch(handlers.reactive, 'endpoint_from_flag')
-        self.unit_get.return_value = '10.0.0.10'
-        self.get_hostname.return_value = 'myhost.maas'
+        self.gethostname.return_value = 'myhost.maas'
+        self.network_get_primary_address.return_value = '10.0.0.10'
         cfg = {
             'enable-stonith': True,
             'enable-resources': True}
@@ -158,17 +158,18 @@ class TestPAcemakerRemoteHandlers(unittest.TestCase):
         handlers.publish_stonith_info()
         endpoint_mock.publish_info.assert_called_once_with(
             enable_resources=True,
+            remote_ip='10.0.0.10',
             remote_hostname='myhost.maas',
             stonith_hostname='myhost.maas')
 
     def test_publish_stonith_info_all_off(self):
-        self.patch(handlers.charmhelpers.contrib.network.ip, 'get_hostname')
+        self.patch(handlers.socket, 'gethostname')
+        self.patch(handlers.hookenv, 'network_get_primary_address')
         self.patch(handlers.hookenv, 'status_set')
         self.patch(handlers.hookenv, 'config')
-        self.patch(handlers.hookenv, 'unit_get')
         self.patch(handlers.reactive, 'endpoint_from_flag')
-        self.unit_get.return_value = '10.0.0.10'
-        self.get_hostname.return_value = 'myhost.maas'
+        self.gethostname.return_value = 'myhost.maas'
+        self.network_get_primary_address.return_value = '10.0.0.10'
         cfg = {
             'enable-stonith': False,
             'enable-resources': False}
@@ -178,6 +179,7 @@ class TestPAcemakerRemoteHandlers(unittest.TestCase):
         handlers.publish_stonith_info()
         endpoint_mock.publish_info.assert_called_once_with(
             enable_resources=False,
+            remote_ip='10.0.0.10',
             remote_hostname='myhost.maas',
             stonith_hostname=None)
 

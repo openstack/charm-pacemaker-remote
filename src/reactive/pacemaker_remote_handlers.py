@@ -13,14 +13,13 @@
 # limitations under the License.
 
 import shutil
+import socket
 import os
 
 import charms.reactive as reactive
 import charmhelpers.fetch as fetch
 import charmhelpers.core.hookenv as hookenv
 import charmhelpers.core.host as ch_host
-
-import charmhelpers.contrib.network.ip
 
 COROSYNC_DIR = '/etc/corosync'
 SERVICES = ['pacemaker_remote', 'pcsd']
@@ -65,8 +64,8 @@ def install():
 @reactive.when('endpoint.pacemaker-remote.joined')
 def publish_stonith_info():
     """Provide remote hacluster with info for including remote in cluster"""
-    remote_hostname = charmhelpers.contrib.network.ip.get_hostname(
-        hookenv.unit_get('private-address'))
+    remote_ip = hookenv.network_get_primary_address('pacemaker-remote')
+    remote_hostname = socket.gethostname()
     if hookenv.config('enable-stonith'):
         stonith_hostname = remote_hostname
     else:
@@ -75,6 +74,7 @@ def publish_stonith_info():
         'endpoint.pacemaker-remote.joined')
     remote.publish_info(
         remote_hostname=remote_hostname,
+        remote_ip=remote_ip,
         enable_resources=hookenv.config('enable-resources'),
         stonith_hostname=stonith_hostname)
 
