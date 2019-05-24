@@ -1,6 +1,6 @@
 charm_name: pacemaker-remote
 tests:
-  - zaza.charm_tests.pacemaker_remote.tests.PacemakerRemoteTest
+  - zaza.openstack.charm_tests.pacemaker_remote.tests.PacemakerRemoteTest
 configure:
   - zaza.charm_tests.noop.setup.basic_setup
 gate_bundles:
