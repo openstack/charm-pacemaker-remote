@@ -11,7 +11,7 @@ applications:
     charm: cs:bionic/ubuntu
     num_units: 3
   hacluster:
-    charm: cs:~gnuoy/hacluster-28
+    charm: cs:~openstack-charmers-next/hacluster
     options:
       corosync_transport: unicast
       cluster_count: 3
