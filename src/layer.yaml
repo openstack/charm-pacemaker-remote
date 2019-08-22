@@ -2,3 +2,4 @@ includes: ['layer:basic', 'interface:pacemaker-remote']
 options:
   basic:
     use_venv: True
+    include_system_packages: False
