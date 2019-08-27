@@ -4,7 +4,7 @@ tests:
 configure:
   - zaza.charm_tests.noop.setup.basic_setup
 gate_bundles:
-  - basic
+  - bionic-basic
 smoke_bundles:
-  - basic
+  - bionic-basic
 
