@@ -65,7 +65,7 @@ def install():
 def publish_stonith_info():
     """Provide remote hacluster with info for including remote in cluster"""
     remote_ip = hookenv.network_get_primary_address('pacemaker-remote')
-    remote_hostname = socket.gethostname()
+    remote_hostname = socket.getfqdn()
     if hookenv.config('enable-stonith'):
         stonith_hostname = remote_hostname
     else:
