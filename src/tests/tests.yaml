@@ -5,6 +5,9 @@ configure:
   - zaza.charm_tests.noop.setup.basic_setup
 gate_bundles:
   - bionic-basic
+  - focal-basic
 smoke_bundles:
   - bionic-basic
-
+tests_options:
+  force_deploy:
+    - focal-basic

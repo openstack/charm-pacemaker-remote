@@ -1,0 +1,34 @@
+series: focal
+
+applications:
+
+  api:
+    charm: cs:focal/ubuntu
+    num_units: 3
+
+  hacluster:
+    charm: cs:~openstack-charmers-next/hacluster
+    options:
+      corosync_transport: unicast
+      cluster_count: 3
+
+  compute:
+    charm: cs:focal/ubuntu
+    num_units: 1
+
+  pacemaker-remote:
+    charm: pacemaker-remote
+    options:
+      enable-stonith: False
+      enable-resources: False
+
+relations:
+
+  - - 'compute:juju-info'
+    - 'pacemaker-remote:juju-info'
+
+  - - 'api:juju-info'
+    - 'hacluster:juju-info'
+
+  - - 'hacluster:pacemaker-remote'
+    - 'pacemaker-remote:pacemaker-remote'
