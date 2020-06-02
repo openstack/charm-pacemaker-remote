@@ -5,11 +5,12 @@ summary: Deploys a pacemaker remote service
 description: |
   Deploys a pacemaker-remote which can be added to a full cluster.
 tags:
-  - openstack
+- openstack
 series:
-  - bionic
-  - eoan
-  - focal
+- bionic
+- eoan
+- focal
+- groovy
 requires:
   juju-info:
     interface: juju-info
