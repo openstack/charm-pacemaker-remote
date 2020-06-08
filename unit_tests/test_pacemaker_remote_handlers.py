@@ -14,7 +14,7 @@
 
 import unittest
 
-import mock
+from unittest import mock
 
 import reactive.pacemaker_remote_handlers as handlers
 
