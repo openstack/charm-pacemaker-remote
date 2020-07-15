@@ -8,6 +8,8 @@ gate_bundles:
   - focal-basic
 smoke_bundles:
   - bionic-basic
+dev_bundles:
+  - groovy-basic
 tests_options:
   force_deploy:
-    - focal-basic
+    - groovy-basic
