@@ -6,10 +6,9 @@ configure:
 gate_bundles:
   - bionic-basic
   - focal-basic
+  - groovy-basic
 smoke_bundles:
   - bionic-basic
-dev_bundles:
-  - groovy-basic
 tests_options:
   force_deploy:
     - groovy-basic
