@@ -1,14 +1,22 @@
 charm_name: pacemaker-remote
+
 tests:
   - zaza.openstack.charm_tests.pacemaker_remote.tests.PacemakerRemoteTest
+
 configure:
   - zaza.charm_tests.noop.setup.basic_setup
+
 gate_bundles:
   - bionic-basic
   - focal-basic
   - groovy-basic
+
 smoke_bundles:
-  - bionic-basic
+  - focal-basic
+
+dev_bundles:
+  - hirsute-basic
+
 target_deploy_status:
   # NOTE(lourot): cs:ubuntu has now an empty status message when ready:
   api:
@@ -17,6 +25,7 @@ target_deploy_status:
   compute:
     workload-status: active
     workload-status-message: ''
+
 tests_options:
   force_deploy:
-    - groovy-basic
+    - hirsute-basic
