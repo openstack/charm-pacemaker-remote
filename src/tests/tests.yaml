@@ -9,6 +9,14 @@ gate_bundles:
   - groovy-basic
 smoke_bundles:
   - bionic-basic
+target_deploy_status:
+  # NOTE(lourot): cs:ubuntu has now an empty status message when ready:
+  api:
+    workload-status: active
+    workload-status-message: ''
+  compute:
+    workload-status: active
+    workload-status-message: ''
 tests_options:
   force_deploy:
     - groovy-basic
