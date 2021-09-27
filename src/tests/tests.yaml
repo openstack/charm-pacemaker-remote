@@ -16,6 +16,7 @@ smoke_bundles:
 
 dev_bundles:
   - hirsute-basic
+  - impish-basic
 
 target_deploy_status:
   # NOTE(lourot): cs:ubuntu has now an empty status message when ready:
@@ -28,4 +29,7 @@ target_deploy_status:
 
 tests_options:
   force_deploy:
+    # NOTE(lourot): cs:ubuntu doesn't support hirsute officially in its
+    # metadata:
     - hirsute-basic
+    - impish-basic

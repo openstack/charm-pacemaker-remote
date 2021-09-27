@@ -7,6 +7,8 @@
       - focal-basic
       - groovy-basic
       - hirsute-basic
+      - impish-basic:
+          voting: false
     vars:
       needs_charm_build: true
       charm_build_name: pacemaker-remote
@@ -41,3 +43,9 @@
     dependencies: *smoke-jobs
     vars:
       tox_extra_args: hirsute-basic
+- job:
+    name: impish-basic
+    parent: func-target
+    dependencies: *smoke-jobs
+    vars:
+      tox_extra_args: impish-basic
