@@ -9,7 +9,8 @@ configure:
 gate_bundles:
   - bionic-basic
   - focal-basic
-  - groovy-basic
+  - hirsute-basic
+  - impish-basic
 
 smoke_bundles:
   - focal-basic
@@ -17,6 +18,7 @@ smoke_bundles:
 dev_bundles:
   - hirsute-basic
   - impish-basic
+  - jammy-basic
 
 target_deploy_status:
   # NOTE(lourot): cs:ubuntu has now an empty status message when ready:
@@ -29,7 +31,8 @@ target_deploy_status:
 
 tests_options:
   force_deploy:
-    # NOTE(lourot): cs:ubuntu doesn't support hirsute officially in its
+    # NOTE(lourot): cs:ubuntu doesn't support hirsute+ officially in its
     # metadata:
     - hirsute-basic
     - impish-basic
+    - jammy-basic

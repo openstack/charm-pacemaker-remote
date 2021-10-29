@@ -1,9 +1,9 @@
-series: groovy
+series: jammy
 
 applications:
 
   api:
-    charm: cs:groovy/ubuntu
+    charm: cs:ubuntu
     num_units: 3
 
   hacluster:
@@ -13,7 +13,7 @@ applications:
       cluster_count: 3
 
   compute:
-    charm: cs:groovy/ubuntu
+    charm: cs:ubuntu
     num_units: 1
 
   pacemaker-remote:
