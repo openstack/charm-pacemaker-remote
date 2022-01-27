@@ -1,11 +1,10 @@
 - project:
     templates:
-      - charm-yoga-unit-jobs
+      - charm-unit-jobs-py38
+      - charm-unit-jobs-py39
     check:
       jobs:
-      - bionic-basic
       - focal-basic
-      - hirsute-basic
       - impish-basic:
           voting: false
       - jammy-basic:
@@ -15,37 +14,32 @@
       charm_build_name: pacemaker-remote
 
 - job:
-    name: bionic-basic
-    parent: func-target
-    dependencies: 
-      - osci-lint
-      - tox-py36
-      - tox-py38
-      - tox-py39
-    vars:
-      tox_extra_args: bionic-basic
-- job:
     name: focal-basic
     parent: func-target
-    dependencies: &smoke-jobs
-      - bionic-basic
+    dependencies:
+      - osci-lint
+      - tox-py38
+      - tox-py39
+      - charm-build
     vars:
       tox_extra_args: focal-basic
 - job:
-    name: hirsute-basic
-    parent: func-target
-    dependencies: *smoke-jobs
-    vars:
-      tox_extra_args: hirsute-basic
-- job:
     name: impish-basic
     parent: func-target
-    dependencies: *smoke-jobs
+    dependencies:
+      - osci-lint
+      - tox-py38
+      - tox-py39
+      - charm-build
     vars:
       tox_extra_args: impish-basic
 - job:
     name: jammy-basic
     parent: func-target
-    dependencies: *smoke-jobs
+    dependencies:
+      - osci-lint
+      - tox-py38
+      - tox-py39
+      - charm-build
     vars:
       tox_extra_args: jammy-basic

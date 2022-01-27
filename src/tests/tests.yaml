@@ -7,16 +7,13 @@ configure:
   - zaza.charm_tests.noop.setup.basic_setup
 
 gate_bundles:
-  - bionic-basic
   - focal-basic
-  - hirsute-basic
   - impish-basic
 
 smoke_bundles:
   - focal-basic
 
 dev_bundles:
-  - hirsute-basic
   - impish-basic
   - jammy-basic
 
@@ -33,6 +30,5 @@ tests_options:
   force_deploy:
     # NOTE(lourot): cs:ubuntu doesn't support hirsute+ officially in its
     # metadata:
-    - hirsute-basic
     - impish-basic
     - jammy-basic

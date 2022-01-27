@@ -7,10 +7,11 @@ applications:
     num_units: 3
 
   hacluster:
-    charm: cs:~openstack-charmers-next/hacluster
+    charm: ch:hacluster
     options:
       corosync_transport: unicast
       cluster_count: 3
+    channel: latest/edge
 
   compute:
     charm: cs:ubuntu
