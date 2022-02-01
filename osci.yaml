@@ -12,6 +12,7 @@
     vars:
       needs_charm_build: true
       charm_build_name: pacemaker-remote
+      build_type: charmcraft
 
 - job:
     name: focal-basic

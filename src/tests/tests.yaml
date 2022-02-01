@@ -21,10 +21,10 @@ target_deploy_status:
   # NOTE(lourot): cs:ubuntu has now an empty status message when ready:
   api:
     workload-status: active
-    workload-status-message: ''
+    workload-status-message-prefix: ''
   compute:
     workload-status: active
-    workload-status-message: ''
+    workload-status-message-prefix: ''
 
 tests_options:
   force_deploy:
