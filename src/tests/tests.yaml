@@ -7,15 +7,14 @@ configure:
   - zaza.charm_tests.noop.setup.basic_setup
 
 gate_bundles:
-  - focal-basic
-  - impish-basic
+  - jammy-basic
 
 smoke_bundles:
-  - focal-basic
+  - jammy-basic
 
 dev_bundles:
-  - impish-basic
   - jammy-basic
+  - kinetic-basic
 
 target_deploy_status:
   # NOTE(lourot): cs:ubuntu has now an empty status message when ready:
@@ -30,5 +29,5 @@ tests_options:
   force_deploy:
     # NOTE(lourot): cs:ubuntu doesn't support hirsute+ officially in its
     # metadata:
-    - impish-basic
     - jammy-basic
+    - kinetic-basic

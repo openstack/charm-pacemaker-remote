@@ -1,46 +1,34 @@
 - project:
     templates:
-      - charm-unit-jobs-py38
-      - charm-unit-jobs-py39
+      - charm-unit-jobs-py310
     check:
       jobs:
-      - focal-basic
-      - impish-basic:
-          voting: false
-      - jammy-basic:
+      - jammy-basic
+      - kinetic-basic:
           voting: false
     vars:
       needs_charm_build: true
       charm_build_name: pacemaker-remote
       build_type: charmcraft
+      charmcraft_channel: 2.0/stable
 
-- job:
-    name: focal-basic
-    parent: func-target
-    dependencies:
-      - osci-lint
-      - tox-py38
-      - tox-py39
-      - charm-build
-    vars:
-      tox_extra_args: focal-basic
-- job:
-    name: impish-basic
-    parent: func-target
-    dependencies:
-      - osci-lint
-      - tox-py38
-      - tox-py39
-      - charm-build
-    vars:
-      tox_extra_args: impish-basic
 - job:
     name: jammy-basic
     parent: func-target
     dependencies:
       - osci-lint
-      - tox-py38
-      - tox-py39
+      - name: tox-py310
+        soft: true
       - charm-build
     vars:
       tox_extra_args: jammy-basic
+- job:
+    name: kinetic-basic
+    parent: func-target
+    dependencies:
+      - osci-lint
+      - name: tox-py310
+        soft: true
+      - charm-build
+    vars:
+      tox_extra_args: kinetic-basic
