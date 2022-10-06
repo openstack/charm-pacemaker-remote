@@ -8,19 +8,20 @@ relations:
   - pacemaker-remote:pacemaker-remote
 applications:
   api:
-    charm: cs:bionic/ubuntu
+    charm: ch:ubuntu
     num_units: 3
   hacluster:
-    charm: cs:~openstack-charmers/hacluster
+    charm: ch:hacluster
     options:
       corosync_transport: unicast
       cluster_count: 3
+    channel: 2.0.3/edge
   compute:
     charm: cs:bionic/ubuntu
     num_units: 1
   pacemaker-remote:
     series: bionic
-    charm: pacemaker-remote
+    charm: ../../../pacemaker-remote.charm
     options:
       enable-stonith: False
       enable-resources: False

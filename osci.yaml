@@ -1,43 +1,35 @@
 - project:
     templates:
-      - charm-unit-jobs
+      - charm-unit-jobs-py36
+      - charm-unit-jobs-py38
     check:
       jobs:
-      - bionic-basic
-      - focal-basic
-      - groovy-basic
-      - hirsute-basic
+        - charm-build
+        - bionic-basic
+        - focal-basic
     vars:
       needs_charm_build: true
       charm_build_name: pacemaker-remote
+      build_type: charmcraft
+      charmcraft_channel: 1.5/stable
 
 - job:
     name: bionic-basic
     parent: func-target
-    dependencies: 
+    dependencies:
+      - charm-build
       - osci-lint
-      - tox-py35
       - tox-py36
-      - tox-py37
       - tox-py38
     vars:
       tox_extra_args: bionic-basic
 - job:
     name: focal-basic
     parent: func-target
-    dependencies: &smoke-jobs
-      - bionic-basic
+    dependencies:
+      - charm-build
+      - osci-lint
+      - tox-py36
+      - tox-py38
     vars:
       tox_extra_args: focal-basic
-- job:
-    name: groovy-basic
-    parent: func-target
-    dependencies: *smoke-jobs
-    vars:
-      tox_extra_args: groovy-basic
-- job:
-    name: hirsute-basic
-    parent: func-target
-    dependencies: *smoke-jobs
-    vars:
-      tox_extra_args: hirsute-basic
