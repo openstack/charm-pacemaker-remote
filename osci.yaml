@@ -1,18 +1,16 @@
 - project:
     templates:
       - charm-unit-jobs-py38
-      - charm-unit-jobs-py39
+      - charm-unit-jobs-py310
     check:
       jobs:
       - focal-basic
-      - impish-basic:
-          voting: false
-      - jammy-basic:
-          voting: false
+      - jammy-basic
     vars:
       needs_charm_build: true
       charm_build_name: pacemaker-remote
       build_type: charmcraft
+      charmcraft_channel: "1.5/stable"
 
 - job:
     name: focal-basic
@@ -20,27 +18,17 @@
     dependencies:
       - osci-lint
       - tox-py38
-      - tox-py39
       - charm-build
     vars:
       tox_extra_args: focal-basic
-- job:
-    name: impish-basic
-    parent: func-target
-    dependencies:
-      - osci-lint
-      - tox-py38
-      - tox-py39
-      - charm-build
-    vars:
-      tox_extra_args: impish-basic
 - job:
     name: jammy-basic
     parent: func-target
     dependencies:
       - osci-lint
+      # actually want py310 but it's disabled, so use py38 instead.
       - tox-py38
-      - tox-py39
+      #- tox-py310
       - charm-build
     vars:
       tox_extra_args: jammy-basic

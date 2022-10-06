@@ -13,7 +13,7 @@ applications:
     options:
       corosync_transport: unicast
       cluster_count: 3
-    channel: latest/edge
+    channel: 2.4/edge
 
   compute:
     charm: cs:ubuntu
