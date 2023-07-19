@@ -8,7 +8,7 @@ tags:
 - openstack
 series:
 - jammy
-- kinetic
+- mantic
 requires:
   juju-info:
     interface: juju-info

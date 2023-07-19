@@ -14,7 +14,7 @@ smoke_bundles:
 
 dev_bundles:
   - jammy-basic
-  - kinetic-basic
+  - mantic-basic
 
 target_deploy_status:
   # NOTE(lourot): cs:ubuntu has now an empty status message when ready:
@@ -30,4 +30,4 @@ tests_options:
     # NOTE(lourot): cs:ubuntu doesn't support hirsute+ officially in its
     # metadata:
     - jammy-basic
-    - kinetic-basic
+    - mantic-basic

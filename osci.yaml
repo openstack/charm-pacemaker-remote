@@ -4,13 +4,13 @@
     check:
       jobs:
       - jammy-basic
-      - kinetic-basic:
+      - mantic-basic:
           voting: false
     vars:
       needs_charm_build: true
       charm_build_name: pacemaker-remote
       build_type: charmcraft
-      charmcraft_channel: 2.0/stable
+      charmcraft_channel: 2.x/stable
 
 - job:
     name: jammy-basic
@@ -21,9 +21,9 @@
         soft: true
       - charm-build
     vars:
-      tox_extra_args: jammy-basic
+      tox_extra_args: '-- jammy-basic'
 - job:
-    name: kinetic-basic
+    name: mantic-basic
     parent: func-target
     dependencies:
       - osci-lint
@@ -31,4 +31,4 @@
         soft: true
       - charm-build
     vars:
-      tox_extra_args: kinetic-basic
+      tox_extra_args: '-- mantic-basic'
