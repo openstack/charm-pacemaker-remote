@@ -4,6 +4,7 @@ maintainer: OpenStack Charmers <openstack-charmers@lists.ubuntu.com>
 summary: Deploys a pacemaker remote service
 description: |
   Deploys a pacemaker-remote which can be added to a full cluster.
+docs: https://discourse.charmhub.io/t/pacemaker-remote-docs-index/11217
 tags:
 - openstack
 series:
